@@ -4,6 +4,8 @@ import Form from './components/Form';
 import Order from './components/Order';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import * as yup from 'yup';
+import formSchema from './validation/formSchema';
 
 const App = () => {
   const defaultFormValues = {
@@ -16,12 +18,33 @@ const App = () => {
     special: ''
   }
 
+  const defaultFormErrors = {
+    special: ''
+  }
+
   const [formValues, setFormValues] = useState(defaultFormValues);
+  const [formErrors, setFormErrors] = useState(defaultFormErrors);
   const [orders, setOrders] = useState([]);
 
   function inputHandler(event) {
     const name = event.target.name
     const value = event.target.value
+
+    yup
+    .reach(formSchema, name)
+    .validate(value)
+    .then(valid => {
+      setFormErrors({
+        ...formErrors,
+        [name]: ''
+      })
+    })
+    .catch(error => {
+      setFormErrors({
+        ...formErrors,
+        [name]: error.errors[0]
+      })
+    })
 
     setFormValues({
       ...formValues,
@@ -64,7 +87,7 @@ return (
     <Router>
       <Switch>
         <Route path='/pizza'>
-          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} />
+          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} errors={formErrors} />
         </Route>
 
         <Route path='/'>
