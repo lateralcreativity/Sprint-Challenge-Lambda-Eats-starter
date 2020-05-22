@@ -15,16 +15,16 @@ describe('Form filler', () => {
     })
 
     it('can select multiple toppings', () => {
-        cy.get(':nth-child(5) > :nth-child(2) > input')
+        cy.get(':nth-child(7) > :nth-child(2) > input')
         .click()
 
-        cy.get(':nth-child(5) > :nth-child(3) > input')
+        cy.get(':nth-child(7) > :nth-child(3) > input')
         .click()
 
-        cy.get(':nth-child(5) > :nth-child(4) > input')
+        cy.get(':nth-child(7) > :nth-child(4) > input')
         .click()
 
-        cy.get(':nth-child(5) > :nth-child(5) > input')
+        cy.get(':nth-child(7) > :nth-child(5) > input')
         .click()
     })
 
