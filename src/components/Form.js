@@ -1,8 +1,9 @@
 import React from 'react';
 import Nav from './Nav';
+import Order from './Order';
 
 export default function Form(props) {
-    const { values, inputHandler, submitHandler, checkboxHandler, errors, disabled } = props;
+    const { values, inputHandler, submitHandler, checkboxHandler, errors, disabled, orders } = props;
     return (
         <>
             <Nav />
@@ -95,6 +96,10 @@ export default function Form(props) {
                     <button className="submit" disabled={disabled}>Submit Order</button>
                 </div>
             </form>
+
+            {orders.map(order => {
+                return <Order key={order.id} values={order} />
+            })}
         </>
     )
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Home from './components/Home';
 import Form from './components/Form';
-import Order from './components/Order';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
@@ -98,7 +97,7 @@ return (
     <Router>
       <Switch>
         <Route path='/pizza'>
-          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} errors={formErrors} disabled={disabled} />
+          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} errors={formErrors} disabled={disabled} orders={orders} />
         </Route>
 
         <Route path='/'>
@@ -106,10 +105,6 @@ return (
         </Route>
       </Switch>
     </Router>
-
-    {orders.map(order => {
-      return <Order key={order.id} values={order} />
-    })}
   </div>
 );
 };
