@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Home from './components/Home';
 import Form from './components/Form';
 import Order from './components/Order';
@@ -19,12 +19,19 @@ const App = () => {
   }
 
   const defaultFormErrors = {
+    size:'',
+    sauce: '',
+    pepperoni: '',
+    sausage: '',
+    canadianBacon: '',
+    spicyItalianSausage: '',
     special: ''
   }
 
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [formErrors, setFormErrors] = useState(defaultFormErrors);
   const [orders, setOrders] = useState([]);
+  const [disabled, setDisabled] = useState(true)
 
   function inputHandler(event) {
     const name = event.target.name
@@ -65,7 +72,6 @@ const App = () => {
     event.preventDefault()
 
     const newOrder = { ...formValues }
-
     postNewOrder(newOrder)
   }
 
@@ -82,12 +88,17 @@ const App = () => {
     })
   }
 
+  useEffect(() => {
+    formSchema.isValid(formValues)
+      .then(valid => setDisabled(!valid))
+  }, [formValues])
+
 return (
   <div className="App">
     <Router>
       <Switch>
         <Route path='/pizza'>
-          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} errors={formErrors} />
+          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} errors={formErrors} disabled={disabled} />
         </Route>
 
         <Route path='/'>

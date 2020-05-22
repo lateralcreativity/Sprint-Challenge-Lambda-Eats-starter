@@ -2,70 +2,97 @@ import React from 'react';
 import Nav from './Nav';
 
 export default function Form(props) {
-    const { values, inputHandler, submitHandler, checkboxHandler, errors } = props;
+    const { values, inputHandler, submitHandler, checkboxHandler, errors, disabled } = props;
     return (
         <>
             <Nav />
             <form onSubmit={submitHandler}>
                 <div>
-                    <div>{errors.special}</div>
+
+                    <div>
+                        {
+                            Object.values(errors).map((error, idx) => (
+                                <div key={idx}>{error}</div>
+                            ))
+                        }
+                    </div>
+
                     <h2>Build your own pizza.</h2>
 
-                    <label>Choice of size:&nbsp;
+                    <p>Choice of size:&nbsp;
                     <select name="size" value={values.size} onChange={inputHandler}>
                             <option value="">Select a size</option>
                             <option value="small">Small</option>
                             <option value="medium">Medium</option>
                             <option value="large">Large</option>
                         </select>
-                    </label>
+                    </p>
+                    <hr />
 
-                    <label>Choice of sauce:&nbsp;
-                    <label>Original Red:&nbsp;
-                        <input type="radio" name="sauce" value='original red' onChange={inputHandler} />
+                    <p>Choice of sauce:&nbsp;<br />
+                        <label>Original Red:&nbsp;
+                        <input type="radio" name="sauce" value='original red' id="originalRed" onChange={inputHandler} />
+                            <br />
+                            <br />
                         </label>
 
                         <label>Garlic Ranch:&nbsp;
-                        <input type="radio" name="sauce" value='garlic ranch' onChange={inputHandler} />
+                        <input type="radio" name="sauce" value='garlic ranch' id="garlicRanch" onChange={inputHandler} />
+                            <br />
+                            <br />
                         </label>
 
                         <label>BBQ Sauce:&nbsp;
-                        <input type="radio" name="sauce" value='bbq sauce' onChange={inputHandler} />
+                        <input type="radio" name="sauce" value='bbq sauce' id="bbqSauce" onChange={inputHandler} />
+                            <br />
+                            <br />
                         </label>
 
                         <label>Spinach Alfredo:&nbsp;
-                        <input type="radio" name="sauce" value="spinach alfredo" onChange={inputHandler} />
+                        <input type="radio" name="sauce" value="spinach alfredo" id="spinachAlfredo" onChange={inputHandler} />
+                            <br />
                         </label>
-                    </label>
+                    </p>
+                    <hr />
 
-                    <label>Add Toppings:&nbsp;
-                    <label>Pepperoni:&nbsp;
-                        <input className="topping" type="checkbox" name="pepperoni" checked={values.pepperoni} onChange={checkboxHandler} />
+                    <p>Add Toppings:<br />
+                        <label>Pepperoni:&nbsp;
+                        <input type="checkbox" name="pepperoni" checked={values.pepperoni} onChange={checkboxHandler} />
+                            <br />
+                            <br />
                         </label>
 
                         <label>Sausage:&nbsp;
-                        <input className="topping" type="checkbox" name="sausage" checked={values.sausage} onChange={checkboxHandler} />
+                        <input type="checkbox" name="sausage" checked={values.sausage} onChange={checkboxHandler} />
+                            <br />
+                            <br />
                         </label>
 
                         <label>Canadian Bacon:&nbsp;
-                        <input className="topping" type="checkbox" name="canadianBacon" checked={values.canadianBacon} onChange={checkboxHandler} />
+                        <input type="checkbox" name="canadianBacon" checked={values.canadianBacon} onChange={checkboxHandler} />
+                            <br />
+                            <br />
                         </label>
 
                         <label>Spicy Italian Sausage:&nbsp;
-                        <input className="topping" type="checkbox" name="spicyItalianSausage" checked={values.spicyItalianSausage} onChange={checkboxHandler} />
+                        <input type="checkbox" name="spicyItalianSausage" checked={values.spicyItalianSausage} onChange={checkboxHandler} />
+                            <br />
+                            <br />
                         </label>
-                    </label>
+                    </p>
+                    <hr />
 
-                    <label>Special Instructions:&nbsp;
+                    <p>Special Instructions:&nbsp;
                     <input type="text"
                             placeholder="Special Instructions"
                             name="special"
                             value={values.special}
                             onChange={inputHandler}
                         />
-                    </label>
+                    </p>
+                    <hr />
 
-                    <button>Submit Order</button>
+                    <button className="submit" disabled={disabled}>Submit Order</button>
                 </div>
             </form>
         </>
