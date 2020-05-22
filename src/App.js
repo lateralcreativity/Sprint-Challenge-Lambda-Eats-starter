@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Home from './components/Home';
 import Form from './components/Form';
+import Order from './components/Order';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
@@ -42,7 +43,7 @@ const App = () => {
 
     const newOrder = { ...formValues }
 
-    setFormValues(defaultFormValues)
+    postNewOrder(newOrder)
   }
 
   function postNewOrder( newOrder ) {
@@ -63,7 +64,7 @@ return (
     <Router>
       <Switch>
         <Route path='/pizza'>
-          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} />
+          <Form values={formValues} inputHandler={inputHandler} checkboxHandler={checkboxHandler} submitHandler={submitHandler} />
         </Route>
 
         <Route path='/'>
@@ -71,6 +72,10 @@ return (
         </Route>
       </Switch>
     </Router>
+
+    {orders.map(order => {
+      return <Order key={order.id} values={order} />
+    })}
   </div>
 );
 };
